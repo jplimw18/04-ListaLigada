@@ -187,13 +187,16 @@ void excluirElemento()
 
 				free(toDelete);
 				_delete = true;
-
-				cout << "Exclusao realizada" << endl << endl << "nova lista: " << endl << endl;
-				exibirElementos();
 			}
 
 			aux = aux->prox;
 		}
+	}
+
+	if (_delete)
+	{
+		cout << "Exclusao realizada" << endl << endl << "nova lista: " << endl << endl;
+		exibirElementos();
 	}
 }
 
