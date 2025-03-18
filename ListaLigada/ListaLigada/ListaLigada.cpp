@@ -73,7 +73,7 @@ void menu()
 void inicializar()
 {
 
-	// se a lista j· possuir elementos
+	// se a lista j√° possuir elementos
 	// libera a memoria ocupada
 	NO* aux = primeiro;
 	while (aux != NULL) {
@@ -145,18 +145,94 @@ void inserirElemento()
 
 void excluirElemento()
 {
-	
+	int valorDelete = 0;
+
+	cout << "Insira um elemento para excluir: " << endl;
+	cin >> valorDelete;
+
+	if (primeiro == NULL)
+	{
+		cout << "Lista vazia" << endl;
+		return;
+	}
+
+	NO* pos = posicaoElemento(valorDelete);
+
+	if (pos == NULL)
+	{
+		cout << "O numero nao existe na lista" << endl;
+		return;
+	}
+
+	NO* aux = primeiro;
+	bool _delete = false;
+
+	if (aux->valor == valorDelete)
+	{
+		primeiro = aux->prox;
+		free(aux);
+
+		_delete = true;
+	}
+	else
+	{
+		while (!_delete && aux != NULL)
+		{
+			NO* toDelete = NULL;
+
+			if (aux->prox->valor == valorDelete)
+			{
+				toDelete = aux->prox;
+				aux->prox = aux->prox->prox;
+
+				free(toDelete);
+				_delete = true;
+
+				cout << "Exclusao realizada" << endl << endl << "nova lista: " << endl << endl;
+				exibirElementos();
+			}
+
+			aux = aux->prox;
+		}
+	}
 }
 
 void buscarElemento()
 {
-	
+	int valorBusca = 0;
+	cout << "Insira o valor que deseja encontrar: ";
+	cin >> valorBusca;
+
+	if (primeiro == NULL)
+	{
+		cout << "A lista esta vazia" << endl;
+		return;
+	}
+
+	NO* aux = primeiro;
+	bool find = false;
+
+	while (!find && aux != NULL)
+	{
+		if (aux->valor == valorBusca)
+		{
+			cout << "Elemento encontrado!" << endl;
+			find = true;
+		}
+
+		aux = aux->prox;
+	}
+
+	if (!find)
+	{
+		cout << "Elemento nao encontrado!" << endl;
+	}
 }
 
 
 
 // retorna um ponteiro para o elemento buscado
-// ou NULL se o elemento n„o estiver na lista
+// ou NULL se o elemento n√£o estiver na lista
 NO* posicaoElemento(int numero)
 {
 	NO* aux = primeiro;
